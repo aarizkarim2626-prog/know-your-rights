@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Workplace Rights Gazette — Know Your Rights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink:#152219;
+    --paper:#F1ECDD;
+    --gold:#B4903A;
+    --gold-bright:#D9B45C;
+    --maroon:#7A2331;
+    --sage:#5C7A64;
+    --text-on-ink:#EDE7D6;
+    --text-muted:#9DAF9F;
+    --shadow: 0 18px 40px rgba(0,0,0,0.35);
+
+    --wood-dark:#241209;
+    --wood-mid:#3E220F;
+    --wood-light:#5A3418;
+    --brass:#C9A44C;
+    --brass-bright:#EACD82;
+    --verdict-green:#3E6B4F;
+    --verdict-red:#8A2F2F;
+    --parchment:#EFE4C8;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at top left, rgba(255,255,255,0.03), transparent 45%),
+      var(--ink);
+    color:var(--text-on-ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  ::selection{ background:var(--gold); color:var(--ink); }
+  a{ color:var(--gold-bright); }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 28px; }
+
+  /* ================= COURTROOM QUIZ (hero, first on page) ================= */
+
+  .courtroom-stage{
+    padding:44px 20px 40px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(201,164,76,0.10), transparent 60%),
+      var(--ink);
+    border-bottom:1px solid rgba(237,231,214,0.15);
+  }
+
+  .courtroom-kicker{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:8px;
+  }
+  .courtroom-heading{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.5rem;
+    text-align:center;
+    margin:0 0 4px;
+  }
+  .courtroom-sub{
+    font-size:0.85rem;
+    color:var(--text-muted);
+    text-align:center;
+    max-width:340px;
+    margin:0 0 26px;
+  }
+
+  /* the small vertical rectangle */
+  .court-card{
+    width:100%;
+    max-width:320px;
+    min-height:460px;
+    background:
+      linear-gradient(180deg, var(--wood-light) 0%, var(--wood-mid) 45%, var(--wood-dark) 100%);
+    border:2px solid var(--brass);
+    border-radius:10px;
+    box-shadow: var(--shadow), inset 0 0 0 1px rgba(0,0,0,0.4);
+    position:relative;
+    padding:20px 18px 18px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .court-card::before, .court-card::after,
+  .court-corner-tl, .court-corner-tr, .court-corner-bl, .court-corner-br{
+    content:"";
+    position:absolute;
+    width:20px; height:20px;
+    border:2px solid var(--brass-bright);
+    opacity:0.7;
+  }
+  .court-corner-tl{ top:8px; left:8px; border-right:none; border-bottom:none; }
+  .court-corner-tr{ top:8px; right:8px; border-left:none; border-bottom:none; }
+  .court-corner-bl{ bottom:8px; left:8px; border-right:none; border-top:none; }
+  .court-corner-br{ bottom:8px; right:8px; border-left:none; border-top:none; }
+
+  .court-seal{
+    display:flex;
+    justify-content:center;
+    margin-bottom:6px;
+  }
+  .court-seal svg{ width:44px; height:44px; }
+
+  .court-session{
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:2px;
+  }
+  .court-title{
+    text-align:center;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    color:var(--parchment);
+    margin-bottom:10px;
+  }
+
+  .court-progress{
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-bottom:16px;
+  }
+  .court-dot{
+    width:7px; height:7px;
+    border-radius:50%;
+    background:rgba(234,205,130,0.25);
+  }
+  .court-dot.done{ background:var(--brass-bright); }
+  .court-dot.current{ background:var(--brass-bright); box-shadow:0 0 0 3px rgba(234,205,130,0.2); }
+
+  .court-scenario-frame{
+    background:var(--parchment);
+    color:#2b2013;
+    border-radius:4px;
+    padding:16px 14px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+  }
+  .court-scenario-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--verdict-red);
+    margin-bottom:8px;
+  }
+  .court-scenario-text{
+    font-family:'Fraunces', serif;
+    font-size:1rem;
+    line-height:1.42;
+    font-weight:500;
+  }
+
+  .court-question-line{
+    text-align:center;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin:14px 0 10px;
+  }
+
+  .court-buttons{
+    display:flex;
+    gap:10px;
+  }
+  .court-btn{
+    flex:1;
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:0.8rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:13px 8px;
+    border-radius:5px;
+    border:1.5px solid var(--brass);
+    background:rgba(0,0,0,0.2);
+    color:var(--parchment);
+    cursor:pointer;
+    transition:transform 0.12s ease, background 0.15s ease;
+  }
+  .court-btn:hover{ background:rgba(234,205,130,0.15); }
+  .court-btn:active{ transform:scale(0.96); }
+  .court-btn.yes{ border-color:var(--verdict-green); }
+  .court-btn.no{ border-color:var(--verdict-red); }
+
+  /* verdict overlay */
+  .court-verdict{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, var(--wood-mid), var(--wood-dark));
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:26px 20px;
+    text-align:center;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.25s ease;
+  }
+  .court-verdict.show{ opacity:1; pointer-events:auto; }
+
+  .verdict-stamp{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:1.5rem;
+    letter-spacing:0.03em;
+    padding:8px 22px;
+    border:3px solid currentColor;
+    border-radius:6px;
+    transform:rotate(-6deg) scale(0.7);
+    margin-bottom:16px;
+    opacity:0;
+    transition:transform 0.35s cubic-bezier(.2,1.4,.4,1), opacity 0.2s ease;
+  }
+  .court-verdict.show .verdict-stamp{ transform:rotate(-6deg) scale(1); opacity:1; }
+  .verdict-stamp.correct{ color:var(--verdict-green); }
+  .verdict-stamp.incorrect{ color:var(--verdict-red); }
+
+  .verdict-ruling{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.68rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--brass-bright);
+    margin-bottom:10px;
+  }
+  .verdict-explain{
+    font-size:0.86rem;
+    color:var(--parchment);
+    line-height:1.5;
+    margin-bottom:8px;
+  }
+  .verdict-cite{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.62rem;
+    color:var(--text-muted);
+    margin-bottom:18px;
+  }
+  .court-next{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:10px 26px;
+    border-radius:5px;
+    border:1.5px solid var(--brass-bright);
+    background:var(--brass-bright);
+    color:var(--wood-dark);
+    font-weight:600;
+    cursor:pointer;
+  }
+
+  .court-final-title{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    color:var(--parchment);
+    margin-bottom:6px;
+  }
+  .court-final-score{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    color:var(--brass-bright);
+    margin-bottom:14px;
+  }
+  .court-final-rank{
+    font-size:0.86rem;
+    color:var(--text-muted);
+    max-width:250px;
+    margin:0 auto 20px;
+  }
+
+  .courtroom-footnote{
+    margin-top:18px;
+    font-size:0.72rem;
+    color:var(--text-muted);
+    text-align:center;
+    max-width:300px;
+  }
+
+  /* ================= MASTHEAD ================= */
+
+  .masthead{ border-bottom:1px solid rgba(237,231,214,0.18); padding:22px 0 0; }
+  .masthead-top{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted);
+    padding-bottom:16px;
+  }
+  .masthead-title{ text-align:center; padding:10px 0 26px; }
+  .masthead-eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--gold-bright); margin-bottom:14px;
+  }
+  .masthead-title h1{
+    font-family:'Fraunces', serif; font-weight:600; font-size:clamp(2.2rem, 6vw, 3.8rem);
+    margin:0; line-height:1.02; letter-spacing:-0.01em;
+  }
+  .masthead-title .sub{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400; font-size:1.05rem;
+    color:var(--text-muted); margin-top:14px;
+  }
+  .rule{ height:1px; background:linear-gradient(90deg, transparent, var(--gold) 15%, var(--gold) 85%, transparent); margin:0; }
+  .rule-thick{ height:3px; background:var(--gold); margin:8px 0 0; }
+
+  /* ================= DOCKET ================= */
+
+  .docket{ padding:44px 0 40px; border-bottom:1px solid rgba(237,231,214,0.18); }
+  .docket-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:36px; align-items:start; }
+  @media (max-width:720px){ .docket-grid{ grid-template-columns:1fr; } }
+  .docket-lede{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(1.2rem, 3vw, 1.6rem); line-height:1.35; }
+  .docket-lede em{ color:var(--gold-bright); font-style:normal; font-weight:600; }
+  .docket-note{ margin-top:18px; font-size:0.95rem; color:var(--text-muted); }
+  .stat-ledger{ background:rgba(237,231,214,0.04); border:1px solid rgba(237,231,214,0.15); border-radius:2px; }
+  .stat-row{ display:flex; justify-content:space-between; gap:14px; padding:14px 18px; border-bottom:1px solid rgba(237,231,214,0.12); font-family:'IBM Plex Mono', monospace; font-size:0.78rem; }
+  .stat-row:last-child{ border-bottom:none; }
+  .stat-num{ color:var(--gold-bright); font-weight:600; white-space:nowrap; margin-left:12px; }
+  .stat-label{ color:var(--text-muted); }
+
+  /* ================= ARTICLES ================= */
+
+  .articles{ padding:48px 0 16px; }
+  .articles-head{ font-family:'IBM Plex Mono', monospace; font-size:0.75rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-muted); margin-bottom:22px; }
+  .card{ background:var(--paper); color:var(--ink); border-radius:3px; margin-bottom:14px; box-shadow:var(--shadow); overflow:hidden; border:1px solid rgba(0,0,0,0.06); }
+  .card-head{ display:flex; align-items:center; gap:18px; padding:20px 22px; cursor:pointer; user-select:none; background:transparent; border:none; width:100%; text-align:left; font-family:inherit; color:inherit; }
+  .card-head:focus-visible{ outline:2px solid var(--maroon); outline-offset:-2px; }
+  .article-num{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; font-weight:600; color:var(--maroon); border:1px solid var(--maroon); border-radius:50%; width:38px; height:38px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .card-head-text{ flex:1; }
+  .card-head-text .eyebrow{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--sage); margin-bottom:4px; }
+  .card-head-text h3{ font-family:'Fraunces', serif; font-weight:600; font-size:1.18rem; margin:0; }
+  .chevron{ font-family:'IBM Plex Mono', monospace; font-size:1.1rem; color:var(--maroon); transition:transform 0.25s ease; flex-shrink:0; }
+  .card.open .chevron{ transform:rotate(45deg); }
+  .card-body{ max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+  .card.open .card-body{ max-height:600px; }
+  .card-body-inner{ padding:0 22px 24px 78px; font-size:0.98rem; color:#2b2820; }
+  .card-body-inner p{ margin:0 0 12px; }
+  .card-body-inner ul{ margin:0 0 12px; padding-left:20px; }
+  .card-body-inner li{ margin-bottom:6px; }
+  .cite{ display:inline-block; font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--maroon); background:rgba(122,35,49,0.08); padding:2px 7px; border-radius:3px; margin-top:4px; }
+
+  .seal{ display:inline-flex; align-items:center; gap:8px; margin-top:14px; font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--sage); opacity:0; transform:scale(1.5) rotate(-8deg); transition:opacity 0.3s ease 0.15s, transform 0.3s ease 0.15s; }
+  .card.open .seal{ opacity:1; transform:scale(1) rotate(-8deg); }
+  .seal svg{ width:26px; height:26px; }
+
+  /* ================= ACTION LEDGER ================= */
+
+  .action{ padding:52px 0; }
+  .action-title{ font-family:'Fraunces', serif; font-weight:600; font-size:1.9rem; margin-bottom:6px; }
+  .action-sub{ color:var(--text-muted); font-size:0.95rem; margin-bottom:30px; }
+  .steps{ counter-reset:step; border-top:1px solid rgba(237,231,214,0.18); }
+  .step{ display:grid; grid-template-columns:70px 1fr; gap:18px; padding:20px 0; border-bottom:1px solid rgba(237,231,214,0.18); }
+  .step-num{ counter-increment:step; font-family:'IBM Plex Mono', monospace; color:var(--gold-bright); font-size:0.85rem; }
+  .step-num::before{ content: counter(step, decimal-leading-zero); }
+  .step h4{ font-family:'Fraunces', serif; font-size:1.08rem; margin:0 0 6px; font-weight:600; }
+  .step p{ margin:0; color:var(--text-muted); font-size:0.92rem; }
+
+  /* ================= SUMMARY ================= */
+
+  .summary{ padding:8px 0 56px; }
+  .summary-card{ background:rgba(237,231,214,0.05); border:1px solid rgba(237,231,214,0.18); border-radius:3px; padding:30px 28px; }
+  .summary-card h2{ font-family:'Fraunces', serif; font-size:1.5rem; margin:0 0 18px; }
+  .summary-block{ margin-bottom:20px; }
+  .summary-block:last-child{ margin-bottom:0; }
+  .summary-block .tag{ font-family:'IBM Plex Mono', monospace; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--sage); display:block; margin-bottom:6px; }
+  .summary-block p{ margin:0; font-size:0.95rem; color:var(--text-on-ink); opacity:0.9; }
+  .sdg-tags{ display:flex; gap:10px; margin-top:18px; }
+  .sdg-tag{ font-family:'IBM Plex Mono', monospace; font-size:0.72rem; border:1px solid var(--gold); color:var(--gold-bright); padding:5px 12px; border-radius:20px; }
+
+  footer{ padding:26px 0 40px; text-align:center; font-family:'IBM Plex Mono', monospace; font-size:0.72rem; color:var(--text-muted); letter-spacing:0.04em; }
+  footer .helplines{ margin-top:14px; display:flex; justify-content:center; gap:24px; flex-wrap:wrap; }
+
+</style>
+</head>
+<body>
+
+<!-- ================= COURTROOM QUIZ (first thing on the page) ================= -->
+<section class="courtroom-stage">
+  <div class="courtroom-kicker">Before You Read The Law</div>
+  <h2 class="courtroom-heading">Step Into The People's Court</h2>
+  <p class="courtroom-sub">Six real-world situations from Pakistan. You be the judge: is it actually the law, or not?</p>
+
+  <div class="court-card" id="courtCard">
+    <div class="court-corner-tl"></div>
+    <div class="court-corner-tr"></div>
+    <div class="court-corner-bl"></div>
+    <div class="court-corner-br"></div>
+
+    <div class="court-seal">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="21" stroke="#EACD82" stroke-width="1.4"/>
+        <path d="M24 10v6M24 10l-9 5M24 10l9 5" stroke="#EACD82" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M8 16h32" stroke="#EACD82" stroke-width="1"/>
+        <path d="M11 16l-4 9a4 4 0 008 0l-4-9z" stroke="#EACD82" stroke-width="1"/>
+        <path d="M37 16l-4 9a4 4 0 008 0l-4-9z" stroke="#EACD82" stroke-width="1"/>
+        <rect x="21" y="32" width="6" height="8" rx="1" stroke="#EACD82" stroke-width="1.2"/>
+        <path d="M14 40h20" stroke="#EACD82" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="court-session">Court Now In Session</div>
+    <div class="court-title">Case File: True or False</div>
+
+    <div class="court-progress" id="courtProgress"></div>
+
+    <div class="court-scenario-frame">
+      <div class="court-scenario-label" id="courtCaseLabel">Case 1 of 6</div>
+      <div class="court-scenario-text" id="courtScenarioText">Loading case...</div>
+    </div>
+
+    <div class="court-question-line">Is this how the law actually works?</div>
+    <div class="court-buttons">
+      <button class="court-btn yes" onclick="answerCase(true)">Yes, it is</button>
+      <button class="court-btn no" onclick="answerCase(false)">No, it isn't</button>
+    </div>
+
+    <div class="court-verdict" id="courtVerdict">
+      <div class="verdict-stamp" id="verdictStamp">CORRECT</div>
+      <div class="verdict-ruling" id="verdictRuling">The Actual Ruling</div>
+      <div class="verdict-explain" id="verdictExplain"></div>
+      <div class="verdict-cite" id="verdictCite"></div>
+      <button class="court-next" id="courtNextBtn" onclick="nextCase()">Next Case →</button>
+    </div>
+  </div>
+
+  <p class="courtroom-footnote">Every scenario below is grounded in Pakistani law as of 2026. Scroll down after your final verdict to read the full guide.</p>
+</section>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-top">
+      <span>Vol. I — No. 05</span>
+      <span>Islamabad · Pakistan</span>
+      <span id="todayDate">—</span>
+    </div>
+    <div class="rule"></div>
+    <div class="masthead-title">
+      <div class="masthead-eyebrow">A Field Guide, Plainly Stated</div>
+      <h1>The Workplace<br>Rights Gazette</h1>
+      <div class="sub">On gender equality &amp; the law that protects you at work</div>
+    </div>
+  </div>
+  <div class="rule-thick"></div>
+</header>
+
+<section class="docket">
+  <div class="wrap docket-grid">
+    <div>
+      <p class="docket-lede">Most people who face discrimination at work never learn that what happened to them <em>has a section number attached to it</em> — a legal definition, a punishment, and an office required to act on it.</p>
+      <p class="docket-note">This guide unpacks Pakistan's Protection Against Harassment of Women at the Workplace Act, as amended in 2022, into plain language. Tap any article below to open it.</p>
+    </div>
+    <div class="stat-ledger">
+      <div class="stat-row"><span class="stat-label">Working women reporting harassment</span><span class="stat-num">93%</span></div>
+      <div class="stat-row"><span class="stat-label">Pakistan's rank, WEF Gender Gap Report</span><span class="stat-num">142 / 146</span></div>
+      <div class="stat-row"><span class="stat-label">FOSPAH complaints, latest reporting year</span><span class="stat-num">1,290</span></div>
+      <div class="stat-row"><span class="stat-label">Of those, filed by men</span><span class="stat-num">40%</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="articles">
+  <div class="wrap">
+    <div class="articles-head">The Act, Article by Article</div>
+
+    <div class="card">
+      <button class="card-head" onclick="toggleCard(this)">
+        <span class="article-num">I</span>
+        <span class="card-head-text"><span class="eyebrow">Definition</span><h3>What counts as workplace harassment?</h3></span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <p>Harassment isn't limited to sexual conduct. Since the 2022 Amendment, it also includes discrimination based on gender alone — any conduct or attitude that interferes with your work or creates a hostile, intimidating, or offensive environment, even without a sexual element.</p>
+          <p>It is also a criminal offence in its own right under Section 509 of the Pakistan Penal Code, separate from any workplace committee process.</p>
+          <span class="cite">PAHWWA 2010, §2(h)(ii) — 2022 Amendment · PPC §509</span>
+          <div class="seal"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="currentColor">§</text></svg>Verified provision</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-head" onclick="toggleCard(this)">
+        <span class="article-num">II</span>
+        <span class="card-head-text"><span class="eyebrow">Coverage</span><h3>Who is protected?</h3></span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <p>The 2022 Amendment widened "employee" well beyond the office worker. It now covers freelancers, gig workers, domestic workers, interns, trainees, and apprentices — paid or unpaid — plus students, performers, and former employees who resigned or were dismissed.</p>
+          <p>The law also uses gender-neutral language, so men and transgender individuals are protected too — men filed roughly 40% of recent FOSPAH complaints.</p>
+          <span class="cite">PAHWWA 2010, as amended 2022</span>
+          <div class="seal"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="currentColor">§</text></svg>Verified provision</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-head" onclick="toggleCard(this)">
+        <span class="article-num">III</span>
+        <span class="card-head-text"><span class="eyebrow">Jurisdiction</span><h3>Where does the law apply?</h3></span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <p>"Workplace" no longer means just an office. It now reaches educational institutions, gig and delivery platforms, remote work, work travel, off-site events, and any setting connected to your job.</p>
+          <span class="cite">PAHWWA 2010, "workplace" redefinition</span>
+          <div class="seal"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="currentColor">§</text></svg>Verified provision</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-head" onclick="toggleCard(this)">
+        <span class="article-num">IV</span>
+        <span class="card-head-text"><span class="eyebrow">Recourse</span><h3>Your right to file a complaint</h3></span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <p>Every organization in Pakistan is legally required to have an Inquiry Committee — a standing obligation, not a favor. If none exists, or you don't trust it, you can go straight to FOSPAH (the Federal Ombudsperson) or your provincial ombudsperson.</p>
+          <p>You are not required to exhaust the internal process first, and you can pursue a criminal complaint with police under PPC §509 at the same time as a FOSPAH case.</p>
+          <span class="cite">PAHWWA 2010, Inquiry Committee mandate</span>
+          <div class="seal"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="currentColor">§</text></svg>Verified provision</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-head" onclick="toggleCard(this)">
+        <span class="article-num">V</span>
+        <span class="card-head-text"><span class="eyebrow">Evidence</span><h3>The numbers behind the law</h3></span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <p>Roughly 93% of working women in Pakistan report facing some form of workplace harassment — yet complaint numbers remain far lower, pointing to significant underreporting.</p>
+          <span class="cite">FOSPAH annual data · WEF Global Gender Gap Report</span>
+          <div class="seal"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="currentColor">§</text></svg>Verified provision</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="card-head" onclick="toggleCard(this)">
+        <span class="article-num">VI</span>
+        <span class="card-head-text"><span class="eyebrow">Foundation</span><h3>The constitutional basis</h3></span>
+        <span class="chevron">+</span>
+      </button>
+      <div class="card-body">
+        <div class="card-body-inner">
+          <p>This protection gives effect to Article 34 of the Principles of Policy in Pakistan's Constitution, which commits the state to ensuring women's full participation in national life.</p>
+          <span class="cite">Constitution of Pakistan, Article 34</span>
+          <div class="seal"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="18" stroke="currentColor" stroke-width="1.4"/><circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="0.8" stroke-dasharray="2 2"/><text x="20" y="24" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="currentColor">§</text></svg>Verified provision</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="action">
+  <div class="wrap">
+    <div class="action-title">If This Is Happening to You</div>
+    <div class="action-sub">Four steps, in order. Each one strengthens the ones after it.</div>
+    <div class="steps">
+      <div class="step"><div class="step-num"></div><div><h4>Document everything</h4><p>Dates, times, what was said or done, and who else was present. Save messages as you receive them.</p></div></div>
+      <div class="step"><div class="step-num"></div><div><h4>Report to your Inquiry Committee</h4><p>Every workplace is legally required to have one. Submit your complaint in writing and keep a copy.</p></div></div>
+      <div class="step"><div class="step-num"></div><div><h4>Escalate to FOSPAH if unresolved</h4><p>No committee, or no action? The Federal or provincial Ombudsperson can take your complaint directly.</p></div></div>
+      <div class="step"><div class="step-num"></div><div><h4>Reach out for support</h4><p>Legal aid organizations and NGOs can guide you through the process at no cost.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="summary">
+  <div class="wrap">
+    <div class="summary-card">
+      <h2>Case Summary</h2>
+      <div class="summary-block"><span class="tag">The problem</span><p>Legal protection against workplace gender discrimination in Pakistan is strong on paper, but awareness is not. Most affected workers don't know the specific law, section, or office that applies to their situation — so violations go unreported.</p></div>
+      <div class="summary-block"><span class="tag">The solution</span><p>This guide translates the amended Protection Against Harassment Act into plain, navigable language, opening with a quiz that corrects common myths people are told about what the law actually allows.</p></div>
+      <div class="summary-block"><span class="tag">The expected impact</span><p>By closing the awareness gap, this tool helps people recognize discrimination early, push back on false claims about "how it works," and use the legal channels already built for them.</p></div>
+      <div class="sdg-tags"><span class="sdg-tag">SDG 5 — Gender Equality</span><span class="sdg-tag">SDG 10 — Reduced Inequalities</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="rule"></div>
+  <div class="wrap" style="padding-top:22px;">
+    Compiled for informational purposes · Not a substitute for legal advice
+    <div class="helplines"><span>FOSPAH: 051-9217308</span><span>Legal Aid Helpline: 1099</span></div>
+  </div>
+</footer>
+
+<script>
+  // ---------- Article accordion ----------
+  function toggleCard(headEl){
+    const card = headEl.closest('.card');
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.card.open').forEach(c => c.classList.remove('open'));
+    if(!wasOpen){ card.classList.add('open'); }
+  }
+  document.getElementById('todayDate').textContent = new Date().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+
+  // ---------- Courtroom quiz ----------
+  const cases = [
+    {
+      text: "A police officer at the local thana tells a woman that workplace harassment isn't a police matter, and she should only take it up with her employer's committee.",
+      answer: false,
+      explain: "Harassment is also a criminal offence under Section 509 of the Pakistan Penal Code. Police can register a complaint alongside — not instead of — the workplace process.",
+      cite: "PPC §509 · PAHWWA 2010"
+    },
+    {
+      text: "An officer says he cannot register a woman's harassment complaint unless her husband or father comes to co-sign it.",
+      answer: false,
+      explain: "No such requirement exists. A woman can file a complaint on her own; demanding a male guardian's signature is not a lawful condition.",
+      cite: "PAHWWA 2010, as amended 2022"
+    },
+    {
+      text: "A woman is told she can file a criminal complaint with police under Section 509 PPC and a separate case with FOSPAH for the same incident, at the same time.",
+      answer: true,
+      explain: "Correct. The FOSPAH route and the criminal route run in parallel — pursuing one does not require giving up the other.",
+      cite: "PPC §509 runs parallel to PAHWWA 2010"
+    },
+    {
+      text: "An unpaid media intern is told her harassment complaint can't be accepted because interns aren't covered by the law.",
+      answer: false,
+      explain: "The 2022 Amendment extended coverage to interns, trainees, and apprentices — paid or unpaid.",
+      cite: "PAHWWA 2010, 2022 Amendment"
+    },
+    {
+      text: "HR tells a male employee that only women are allowed to file a harassment complaint under this law.",
+      answer: false,
+      explain: "The law uses gender-neutral language. Men can and do file — roughly 40% of recent FOSPAH complaints came from men.",
+      cite: "FOSPAH annual complaint data"
+    },
+    {
+      text: "A company says a harassment complaint can't be filed because there is no Inquiry Committee at that workplace.",
+      answer: false,
+      explain: "Every organization is legally required to have one. If it doesn't, that's a separate violation — and the complainant can go straight to FOSPAH.",
+      cite: "PAHWWA 2010, Inquiry Committee mandate"
+    }
+  ];
+
+  let currentCase = 0;
+  let score = 0;
+  let locked = false;
+
+  function renderProgress(){
+    const el = document.getElementById('courtProgress');
+    el.innerHTML = '';
+    cases.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'court-dot' + (i < currentCase ? ' done' : (i === currentCase ? ' current' : ''));
+      el.appendChild(dot);
+    });
+  }
+
+  function renderCase(){
+    if(currentCase >= cases.length){ renderFinal(); return; }
+    renderProgress();
+    document.getElementById('courtCaseLabel').textContent = 'Case ' + (currentCase + 1) + ' of ' + cases.length;
+    document.getElementById('courtScenarioText').textContent = cases[currentCase].text;
+    document.getElementById('courtVerdict').classList.remove('show');
+    document.querySelector('.court-buttons').style.display = 'flex';
+    document.querySelector('.court-question-line').style.display = 'block';
+    locked = false;
+  }
+
+  function answerCase(userSaysTrue){
+    if(locked) return;
+    locked = true;
+    const c = cases[currentCase];
+    const correct = (userSaysTrue === c.answer);
+    if(correct) score++;
+
+    const stamp = document.getElementById('verdictStamp');
+    stamp.textContent = correct ? 'CORRECT' : 'OVERRULED';
+    stamp.className = 'verdict-stamp ' + (correct ? 'correct' : 'incorrect');
+
+    document.getElementById('verdictRuling').textContent = 'Actual ruling: ' + (c.answer ? 'This IS the law' : 'This is NOT the law');
+    document.getElementById('verdictExplain').textContent = c.explain;
+    document.getElementById('verdictCite').textContent = c.cite;
+
+    document.querySelector('.court-buttons').style.display = 'none';
+    document.querySelector('.court-question-line').style.display = 'none';
+    document.getElementById('courtVerdict').classList.add('show');
+    document.getElementById('courtNextBtn').textContent = (currentCase === cases.length - 1) ? 'See Final Verdict →' : 'Next Case →';
+  }
+
+  function nextCase(){
+    currentCase++;
+    renderCase();
+  }
+
+  function renderFinal(){
+    const card = document.getElementById('courtCard');
+    let rank = 'Observer';
+    if(score === cases.length) rank = "Chief Justice — you know this law cold.";
+    else if(score >= cases.length - 2) rank = "Senior Advocate — sharp instincts, minor gaps.";
+    else if(score >= cases.length - 4) rank = "Junior Advocate — worth reading the guide below.";
+    else rank = "First-Year Student — the guide below will help a lot.";
+
+    card.innerHTML = `
+      <div class="court-corner-tl"></div><div class="court-corner-tr"></div>
+      <div class="court-corner-bl"></div><div class="court-corner-br"></div>
+      <div class="court-seal">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="21" stroke="#EACD82" stroke-width="1.4"/>
+          <path d="M16 24l6 6 12-13" stroke="#EACD82" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="court-session">Session Adjourned</div>
+      <div class="court-title">Final Verdict</div>
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+        <div class="court-final-title">${rank.split(' — ')[0]}</div>
+        <div class="court-final-score">${score} of ${cases.length} rulings correct</div>
+        <div class="court-final-rank">${rank.split(' — ')[1] || ''}</div>
+        <button class="court-next" onclick="restartCourt()">Retry the Docket</button>
+      </div>
+    `;
+  }
+
+  function restartCourt(){
+    currentCase = 0;
+    score = 0;
+    location.reload();
+  }
+
+  renderCase();
+</script>
+
+</body>
+</html>
